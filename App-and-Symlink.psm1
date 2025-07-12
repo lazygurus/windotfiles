@@ -1,3 +1,11 @@
+# 顶级父目录
+$dotfiles = "$HOME\dotfiles"
+$config = "$HOME\.config"
+$localAppData = "$HOME\AppData\Local"
+$roamingAppData = "$HOME\AppData\Roaming"
+$scoop = "D:\scoop"
+$scoopApps = "$scoop\apps"
+
 # 通过scoop安装的应用列表
 $applist = @(
     # enviroments
@@ -78,6 +86,10 @@ $targets = @(
     "$dotfiles\windows-terminal\settings.json",
     # neovim
     "$dotfiles\nvim",
+    # yazi
+    "$dotfiles\yazi\keymap.toml",
+    "$dotfiles\yazi\yazi.toml",
+    "$dotfiles\yazi\theme.toml"
 )
 
 # 软链接路径
@@ -103,7 +115,11 @@ $paths = @(
     "$scoopApps\windows-terminal\current\settings\settings.json",
     # neovim
     "$localAppData\nvim",
+    # yazi
+    "$ro\yazi\keymap.toml",
+    "$ro\yazi\yazi.toml",
+    "$ro\yazi\theme.toml"
 ) 
 
 # 导出变量
-Export-ModuleMember -Variable "applist", "paths", "targets"
+Export-ModuleMember -Variable "applist", "paths", "targets", "dotfiles", "config", "localAppData", "roamingAppData", "scoop", "scoopApps"
