@@ -24,7 +24,7 @@ function Set-SymbolicLink {
         # 创建新的软链接
         Write-Host "😎 new: $Target"
         # 将所有流都追加到 log 中
-        New-Item -ItemType SymbolicLink -Path $Path -Target $Target *>> symbolicLink_configuration.log
+        New-Item -ItemType SymbolicLink -Path $Path -Target $Target *>> symbolicLink-configuration.log
     }
 }
 

@@ -19,8 +19,8 @@ if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
 
     # 安装scoop
     Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-    irm get.scoop.sh -outfile 'install.ps1' -proxy "127.0.0.1:7890" *>> scoop_installation.log
-    .\install.ps1 -ScoopDir $scoop -proxy "127.0.0.1:7890" *>> scoop_installation.log
+    irm get.scoop.sh -outfile 'install.ps1' -proxy "127.0.0.1:7890" *>> scoop-installation.log
+    .\install.ps1 -ScoopDir $scoop -proxy "127.0.0.1:7890" *>> scoop-installation.log
     Remove-Item .\install.ps1
 
     # 是否成功安装scoop
@@ -37,15 +37,15 @@ else {
 }
 
 # 配置scoop
-scoop config proxy 127.0.0.1:7890 *>> scoop_configuration.log
+scoop config proxy 127.0.0.1:7890 *>> scoop-configuration.log
 Write-Host "🚀 set proxy to clash"
-scoop bucket add extras *>> scoop_configuration.log 
+scoop bucket add extras *>> scoop-configuration.log 
 Write-Host "🚀 add bucket extras."
-scoop bucket add nerd-fonts *>> scoop_configuration.wwlog
+scoop bucket add nerd-fonts *>> scoop-configuration.wwlog
 Write-Host "🚀 add bucket nerd-fonts"
-scoop install aira2 *>> scoop_installation.log
-scoop config aria2-enabled true *>> scoop_configuration.log
-socop config aria2-warning-enabled false *>> scoop_configuration.log
+scoop install aira2 *>> scoop-installation.log
+scoop config aria2-enabled true *>> scoop-configuration.log
+socop config aria2-warning-enabled false *>> scoop-configuration.log
 Write-Host "🚀 set aria2 to use multi-process function"
 Write-Host "👌 Scoop configuration complete."
 
@@ -62,7 +62,7 @@ Set-SymbolicLink -Paths $paths -Targets $targets
 # 安装上下文环境使可以通过右键打开应用
 Write-Host "🔭 Install Context"
 # windows terminal
-reg import "$scoopApps\windows-terminal\current\install-context.reg"
+reg import "$scoopApps\windows-terminal\current\install-context.reg" *>> context-installation.log
 Write-Host "🚀 install windows-terminal context"
 # git
 reg import "$scoopApps\git\current\install-context.reg"
@@ -77,3 +77,4 @@ Write-Host "🚀 install pycharm context"
 # neovide
 reg import "$scoopApps\neovide\current\install-context.reg"
 Write-Host "🚀 install neovide context"
+Write-Host "👌 Context installation complete."

@@ -1,6 +1,6 @@
 [user]
-	name = BearProfessor
-	email = bear_professor@outlook.com
+	name = lazygurus
+	email = lazygurus@outlook.com
 [http]
 	proxy = http://127.0.0.1:7890
 [https]
@@ -8,3 +8,5 @@
 [credential]
 	helper = manager
 	store = manager
+[init]
+	defaultBranch = main

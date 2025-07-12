@@ -16,7 +16,7 @@ function Install-Application {
         } 
         else {
             Write-Host "🚀 $app installing..."
-            (scoop install $app *>> app_installation.log) *>> app_suggestion.log
+            (scoop install $app *>> app-installation.log) *>> app-suggestion.log
         }
         $installedApps = & scoop export |
                            ConvertFrom-Json |
@@ -28,7 +28,7 @@ function Install-Application {
             Write-Host "👌 $app sucessfully installed"
         } 
         else {
-            Write-Host "💥 $app installation failed, please check the app_installation.log"
+            Write-Host "💥 $app installation failed, please check the app-installation.log"
         }
     }
 }
