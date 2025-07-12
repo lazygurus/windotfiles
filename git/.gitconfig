@@ -1,0 +1,10 @@
+[user]
+	name = BearProfessor
+	email = bear_professor@outlook.com
+[http]
+	proxy = http://127.0.0.1:7890
+[https]
+	proxy = https://127.0.0.1:7890
+[credential]
+	helper = manager
+	store = manager
