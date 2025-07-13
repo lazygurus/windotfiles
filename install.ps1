@@ -1,3 +1,11 @@
+# 顶级父目录
+$dotfiles = "$HOME\dotfiles"
+$config = "$HOME\.config"
+$localAppData = "$HOME\AppData\Local"
+$roamingAppData = "$HOME\AppData\Roaming"
+$scoop = "D:\scoop"
+$scoopApps = "$scoop\apps"
+
 # 导入下载应用和配置软链接的模块
 Import-Module "$dotfiles\Install-Application.psm1"
 Import-Module "$dotfiles\Set-SymbolicLink.psm1"

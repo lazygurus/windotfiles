@@ -122,4 +122,4 @@ $paths = @(
 ) 
 
 # 导出变量
-Export-ModuleMember -Variable "applist", "paths", "targets", "dotfiles", "config", "localAppData", "roamingAppData", "scoop", "scoopApps"
+Export-ModuleMember -Variable "applist", "paths", "targets"
