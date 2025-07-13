@@ -116,9 +116,9 @@ $paths = @(
     # neovim
     "$localAppData\nvim",
     # yazi
-    "$ro\yazi\keymap.toml",
-    "$ro\yazi\yazi.toml",
-    "$ro\yazi\theme.toml"
+    "$roamingAppData\yazi\keymap.toml",
+    "$roamingAppData\yazi\yazi.toml",
+    "$roamingAppData\yazi\theme.toml"
 ) 
 
 # 导出变量

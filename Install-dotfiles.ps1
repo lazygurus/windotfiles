@@ -19,8 +19,9 @@ if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
     Write-Host "🚀 Scoop is not installed, installing now..."
 
     # 安装scoop
-    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-    irm get.scoop.sh -outfile 'install.ps1' -proxy "127.0.0.1:7890" *>> scoop-installation.log
+    $ExecutionContext.SessionState.LanguageMode = "FullLanguage"
+    Set-ExecutionPolicy -ExecutionPolicy ByPass -Scope CurrentUser
+    Invoke-RestMethod get.scoop.sh -outfile 'install.ps1'
     .\install.ps1 -ScoopDir $scoop -proxy "127.0.0.1:7890" *>> scoop-installation.log
     Remove-Item .\install.ps1
 
