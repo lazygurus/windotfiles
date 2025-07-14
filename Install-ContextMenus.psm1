@@ -25,18 +25,18 @@ function Install-ContextMenus {
             $contextPath = "$ScoopAppsPath\$($app.Name)\current\install-context.reg"
             
             if (Test-Path $contextPath) {
-                Write-Log -Message "Installing $($app.Description) context menu..." -LogType "Context" -Level "Info" -Silent
+                Write-Log -Message "Installing $($app.Description) context menu..." -LogType "Context" -Level "Info"
                 $result = Invoke-WithLogging -Command "reg import `"$contextPath`"" -LogType "Context" -Description ""
                 
                 if ($result) {
                     Write-Log -Message "$($app.Description) context menu installed successfully" -LogType "Context" -Level "Success"
                     $successCount++
                 } else {
-                    Write-Log -Message "$($app.Description) context menu installation failed" -LogType "Context" -Level "Error"
+                    Write-Log -Message "$($app.Description) context menu installation failed - Check details in: context-installation.log" -LogType "Context" -Level "Error"
                     $failureCount++
                 }
             } else {
-                Write-Log -Message "Context file not found for $($app.Description)" -LogType "Context" -Level "Warning"
+                Write-Log -Message "Context file not found for $($app.Description) - Check details in: context-installation.log" -LogType "Context" -Level "Warning"
                 $failureCount++
             }
 
@@ -44,31 +44,33 @@ function Install-ContextMenus {
             if ($app.HasFileAssociation) {
                 $assocPath = "$ScoopAppsPath\$($app.Name)\current\install-file-associations.reg"
                 if (Test-Path $assocPath) {
-                    Write-Log -Message "Installing $($app.Description) file associations..." -LogType "Context" -Level "Info" -Silent
+                    Write-Log -Message "Installing $($app.Description) file associations..." -LogType "Context" -Level "Info"
                     $result = Invoke-WithLogging -Command "reg import `"$assocPath`"" -LogType "Context" -Description ""
                     
                     if ($result) {
                         Write-Log -Message "$($app.Description) file associations installed successfully" -LogType "Context" -Level "Success"
                     } else {
-                        Write-Log -Message "$($app.Description) file associations installation failed" -LogType "Context" -Level "Error"
+                        Write-Log -Message "$($app.Description) file associations installation failed - Check details in: context-installation.log" -LogType "Context" -Level "Error"
                     }
                 } else {
-                    Write-Log -Message "$($app.Description) file associations file not found" -LogType "Context" -Level "Warning"
+                    Write-Log -Message "$($app.Description) file associations file not found - Check details in: context-installation.log" -LogType "Context" -Level "Warning"
                 }
             }
         }
         catch {
-            Write-Log -Message "Error installing context menu for $($app.Description): $($_.Exception.Message)" -LogType "Context" -Level "Error"
+            Write-Log -Message "Error installing context menu for $($app.Description): $($_.Exception.Message) - Check details in: context-installation.log" -LogType "Context" -Level "Error"
             $failureCount++
         }
     }
 
     Write-Progress -Activity "Installing Context Menus" -Completed
-    Write-Log -Message "Context menu installation completed: $successCount successful, $failureCount failed" -LogType "Context" -Level "Success"
+    Write-Log -Message "Context menu installation completed: $successCount successful, $failureCount failed" -LogType "Context" -Level "Info" -Silent
     
     if ($failureCount -gt 0) {
-        Write-Log -Message "Some context menu installations failed. Check logs for details." -LogType "Context" -Level "Warning"
+        Write-Log -Message "Some context menu installations failed. Check context-installation.log for details." -LogType "Context" -Level "Error" -Silent
+        return $false
     }
+    return $true
 }
 
 Export-ModuleMember -Function "Install-ContextMenus"

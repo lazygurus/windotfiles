@@ -29,12 +29,12 @@ function Install-Application {
         Write-Progress -Activity "Installing Applications" -Status "Processing $app ($currentApp/$totalApps)" -PercentComplete (($currentApp / $totalApps) * 100)
         
         if ($installedApps -contains $app) {
-            Write-Log -Message "$app already installed" -LogType "AppInstall" -Level "Success"
+            Write-Log -Message "$app is already installed" -LogType "AppInstall" -Level "Success"
             $successCount++
             continue
         } 
         else {
-            Write-Log -Message "Installing $app..." -LogType "AppInstall" -Level "Info" -Silent
+            Write-Log -Message "Installing $app..." -LogType "AppInstall" -Level "Info"
             try {
                 $result = Invoke-WithLogging -Command "scoop install $app" -LogType "AppInstall" -Description ""
                 
@@ -47,31 +47,33 @@ function Install-Application {
                                    Select-Object -ExpandProperty Name
                     
                     if ($updatedApps -contains $app) {
-                        Write-Log -Message "$app successfully installed" -LogType "AppInstall" -Level "Success"
+                        Write-Log -Message "$app installed successfully" -LogType "AppInstall" -Level "Success"
                         $successCount++
                     } 
                     else {
-                        Write-Log -Message "$app installation failed (not found in installed apps)" -LogType "AppInstall" -Level "Error"
+                        Write-Log -Message "$app installation failed (not found in installed apps) - Check details in: app-installation.log" -LogType "AppInstall" -Level "Error"
                         $failureCount++
                     }
                 } else {
-                    Write-Log -Message "$app installation failed" -LogType "AppInstall" -Level "Error"
+                    Write-Log -Message "$app installation failed - Check details in: app-installation.log" -LogType "AppInstall" -Level "Error"
                     $failureCount++
                 }
             }
             catch {
-                Write-Log -Message "$app installation error: $($_.Exception.Message)" -LogType "AppInstall" -Level "Error"
+                Write-Log -Message "$app installation error: $($_.Exception.Message) - Check details in: app-installation.log" -LogType "AppInstall" -Level "Error"
                 $failureCount++
             }
         }
     }
     
     Write-Progress -Activity "Installing Applications" -Completed
-    Write-Log -Message "Application installation completed: $successCount successful, $failureCount failed" -LogType "AppInstall" -Level "Success"
+    Write-Log -Message "Application installation completed: $successCount successful, $failureCount failed" -LogType "AppInstall" -Level "Info" -Silent
     
     if ($failureCount -gt 0) {
-        Write-Log -Message "Some application installations failed. Check logs for details." -LogType "AppInstall" -Level "Warning"
+        Write-Log -Message "Some application installations failed. Check app-installation.log for details." -LogType "AppInstall" -Level "Error" -Silent
+        return $false
     }
+    return $true
 }
 
 Export-ModuleMember -Function "Install-Application"

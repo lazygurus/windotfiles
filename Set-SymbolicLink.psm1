@@ -40,13 +40,13 @@ function Set-SymbolicLink {
 
             # 检查目标文件是否存在
             if (-not (Test-Path $Target)) {
-                Write-Log -Message "Target does not exist: $Target" -LogType "Symlink" -Level "Error"
+                Write-Log -Message "Target does not exist: $Target - Check details in: symbolicLink-configuration.log" -LogType "Symlink" -Level "Error"
                 $failureCount++
                 continue
             }
 
             # 创建新的软链接
-            Write-Log -Message "Creating symbolic link: $Path -> $Target" -LogType "Symlink" -Level "Info" -Silent
+            Write-Log -Message "Creating symbolic link: $(Split-Path -Path $Target -Leaf)" -LogType "Symlink" -Level "Info"
             $result = Invoke-WithLogging -Command "New-Item -ItemType SymbolicLink -Path `"$Path`" -Target `"$Target`"" -LogType "Symlink" -Description ""
             
             if ($result) {
@@ -56,22 +56,24 @@ function Set-SymbolicLink {
                 $successCount++
             } else {
                 $fileName = Split-Path -Path $Target -Leaf
-                Write-Log -Message "$fileName symbolic link creation failed" -LogType "Symlink" -Level "Error"
+                Write-Log -Message "$fileName symbolic link creation failed - Check details in: symbolicLink-configuration.log" -LogType "Symlink" -Level "Error"
                 $failureCount++
             }
         }
         catch {
-            Write-Log -Message "ERROR creating symbolic link for $Path : $($_.Exception.Message)" -LogType "Symlink" -Level "Error"
+            Write-Log -Message "ERROR creating symbolic link for $Path: $($_.Exception.Message) - Check details in: symbolicLink-configuration.log" -LogType "Symlink" -Level "Error"
             $failureCount++
         }
     }
     
     Write-Progress -Activity "Creating Symbolic Links" -Completed
-    Write-Log -Message "Symbolic link configuration completed: $successCount successful, $failureCount failed" -LogType "Symlink" -Level "Success"
+    Write-Log -Message "Symbolic link configuration completed: $successCount successful, $failureCount failed" -LogType "Symlink" -Level "Info" -Silent
     
     if ($failureCount -gt 0) {
-        Write-Log -Message "Some symbolic link operations failed. Check logs for details." -LogType "Symlink" -Level "Warning"
+        Write-Log -Message "Some symbolic link operations failed. Check symbolicLink-configuration.log for details." -LogType "Symlink" -Level "Error" -Silent
+        return $false
     }
+    return $true
 }
 
 Export-ModuleMember -Function "Set-SymbolicLink"
