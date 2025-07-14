@@ -44,6 +44,10 @@ Write-Host "🔭 Configurate Scoop"
 
 Write-Host "🚀 set scoop proxy to clash"
 scoop config proxy 127.0.0.1:7890 *>> scoop-configuration.log
+Write-Host "🚀 install git via scoop and set SymbolicLink for git"
+(scoop install git *>> app-installation.log) *>> app-suggestion.log
+(scoop install git-credential-manager *>> app-installation.log) *>> app-suggestion.log
+Set-SymbolicLink -paths @("$Home\.gitconfig") -targets @("$dotfiles\git\.gitconfig")
 Write-Host "🚀 add bucket extras."
 scoop bucket add extras *>> scoop-configuration.log 
 Write-Host "🚀 add bucket nerd-fonts"

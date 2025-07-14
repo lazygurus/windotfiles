@@ -10,8 +10,6 @@ $scoopApps = "$scoop\apps"
 $applist = @(
     # enviroments
     "pwsh",
-    "git",
-    "git-credential-manager",
     "nodejs",
     "msys2",
     "cmake",
@@ -65,8 +63,6 @@ $applist = @(
 
 # dotfiles路径列表
 $targets = @(
-    # user_gitconfig
-    "$dotfiles\git\.gitconfig",
     # pwsh
     "$dotfiles\pwsh\profile.ps1",
     # starship
@@ -94,8 +90,6 @@ $targets = @(
 
 # 软链接路径
 $paths = @(
-    # user_gitconfig
-    "$HOME\.gitconfig",
     # pwsh
     "$HOME\Documents\PowerShell\Microsoft.PowerShell_profile.ps1", 
     # starship
