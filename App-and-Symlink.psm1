@@ -15,9 +15,9 @@ $applist = @(
     "cmake",
     "miniconda3",
     # fonts
-    "JetBrainsMono-NF"
-    "JetBrainsMono-NF-Mono"
-    "JetBrainsMono-NF-Propo"
+    "JetBrainsMono-NF",
+    "JetBrainsMono-NF-Mono",
+    "JetBrainsMono-NF-Propo",
     # terminal tools
     "windows-terminal",
     "starship", 
