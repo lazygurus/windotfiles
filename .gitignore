@@ -1,2 +1,8 @@
 # ignore log
 *.log
+
+# ignore test
+test/*
+
+# ignore scoop-master
+scoop-master/*
