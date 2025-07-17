@@ -1,3 +1,21 @@
+<#
+.SYNOPSIS
+应用程序列表和符号链接配置模块
+
+.DESCRIPTION
+此模块定义了：
+1. dotfiles 安装系统使用的所有应用程序列表
+2. 符号链接的源文件和目标路径映射
+3. 系统路径变量和配置目录
+4. 为其他模块提供统一的配置数据源
+
+.NOTES
+此模块导出三个主要变量：
+- $applist: 通过 Scoop 安装的应用程序列表
+- $targets: 符号链接源文件路径数组  
+- $paths: 符号链接目标路径数组
+#>
+
 # 顶级父目录
 $dotfiles = "$HOME\dotfiles"
 $config = "$HOME\.config"
